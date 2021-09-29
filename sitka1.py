@@ -28,6 +28,6 @@ plt.tick_params(axis="both",which='major',labelsize=12)
 
 plt.plot(highs,c="red")
 
-plt.show
+plt.show()
 
 
