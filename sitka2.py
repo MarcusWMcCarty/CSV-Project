@@ -23,7 +23,6 @@ highs = []
 dates = []
 
 
-
 for row in csv_file:
     highs.append(int(row[5]))
     the_date = datetime.strptime(row[2],'%Y-%m-%d')
@@ -42,9 +41,6 @@ plt.tick_params(axis="both",which='major',labelsize=12)
 
 plt.plot(dates, highs,c="red")
 
-fig = plt.figure()
 fig.autofmt_xdate()
 
 plt.show()
-
-
