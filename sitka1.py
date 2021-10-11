@@ -21,7 +21,7 @@ print(highs)
 
 import matplotlib.pyplot as plt
 
-plt.title("Daily High Temperatrues, July 2018", fontsize=16)
+plt.title("Daily High Temperatures, July 2018", fontsize=16)
 plt.xlabel("",fontsize=12)
 plt.ylabel("Temperature (F)",fontsize=12)
 plt.tick_params(axis="both",which='major',labelsize=12)

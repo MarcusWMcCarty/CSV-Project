@@ -3,7 +3,7 @@ from typing import DefaultDict
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-open_file = open("sitka_weather_07-2018_simple.csv", "r")
+open_file = open("sitka_weather_2018_simple.csv", "r")
 
 csv_file = csv.reader(open_file, delimiter=",")
 
@@ -21,10 +21,12 @@ print(mydate)
 
 highs = []
 dates = []
+lows = []
 
 
 for row in csv_file:
     highs.append(int(row[5]))
+    lows.append(int(row[6]))
     the_date = datetime.strptime(row[2],'%Y-%m-%d')
     dates.append(the_date)
 
@@ -34,12 +36,16 @@ print(dates)
 fig = plt.figure()
 
 
-plt.title("Daily High Temperatrues, July 2018", fontsize=16)
+plt.title("Daily High Temperatures, July 2018", fontsize=16)
 plt.xlabel("",fontsize=12)
 plt.ylabel("Temperature (F)",fontsize=12)
 plt.tick_params(axis="both",which='major',labelsize=12)
 
-plt.plot(dates, highs,c="red")
+plt.plot(dates, highs,c="red", alpha=0.5)
+### This second plt.plot plots the lows and the alpha = transparecny so the colors are now half as dark.
+plt.plot(dates, lows, c="blue", alpha=0.5)
+
+plt.fill_between(dates, highs, lows, facecolor= 'blue', alpha=0.1)
 
 fig.autofmt_xdate()
 
