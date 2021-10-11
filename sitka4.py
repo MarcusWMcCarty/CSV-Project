@@ -1,22 +1,24 @@
 import csv
+from os import replace
 from typing import DefaultDict
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-open_file = open("sitka_weather_2018_simple.csv", "r")
+open_file = open("death_valley_2018_simple.csv", "r")
 
 csv_file = csv.reader(open_file, delimiter=",")
 
 header_row = next(csv_file)
 
-print(type(header_row))
+#print(type(header_row))
 
 for index, column_header in enumerate(header_row):
     print(index, column_header)
 
+
 #testing to convert date from string
 mydate = datetime.strptime('2018-07-01', '%Y-%m-%d')
-print(mydate)
+#print(mydate)
 
 
 highs = []
@@ -25,18 +27,25 @@ lows = []
 
 
 for row in csv_file:
-    highs.append(int(row[5]))
-    lows.append(int(row[6]))
-    the_date = datetime.strptime(row[2],'%Y-%m-%d')
-    dates.append(the_date)
+    try:
+        the_date = datetime.strptime(row[2],'%Y-%m-%d')
+        high = int(row[4])
+        low = int(row[5])
+    except ValueError:
+        print(f"Missing data for {the_date}")
+    else:  
+        highs.append(high)
+        lows.append(low)
+        dates.append(the_date)
+    
 
-print(highs)
-print(dates)
+#print(highs)
+#print(dates)
 
 fig = plt.figure()
 
 
-plt.title("Daily High Temperatures, July 2018", fontsize=16)
+plt.title("Daily High and Low Temperatures - 2018\nDeath Valley", fontsize=16)
 plt.xlabel("",fontsize=12)
 plt.ylabel("Temperature (F)",fontsize=12)
 plt.tick_params(axis="both",which='major',labelsize=12)
@@ -59,7 +68,7 @@ plt.subplot(2,1,2)
 plt.plot(dates, lows, c="blue")
 plt.title("Lows")
 
-plt.suptitle("Highs and Lows of Sitka, Alaska")
+plt.suptitle("Highs and Lows of Death Valley")
 
 plt.show()
 
